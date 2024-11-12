@@ -80,7 +80,7 @@ class AyehYab():
                   tag='a',
                   min_word=3,
                   min_len_pure_text=10,
-                  flag_identifying = 0
+                  flag_identifying=0
                   ):
         '''
         :param text: متن ورودی
@@ -89,33 +89,36 @@ class AyehYab():
                         url/شماره سوره/شماره آیه
         :param ayeh_class: کلاسی که به تگ آیه سوار میشود
         :param paragraph_mark: از آنجا که ورودی به صورت لیستی از متنهاست این تگ چیزی است که مابین متنها در پاراگرافهای مختلف قرار میگیرد مانند
-                                '</br>' یا '<p></p>' یا '</br>' یا ''
+                                '</br>' یا '<p></p>' یا '<hr>' یا ''
         :param tag: تگی که متن آیه در آن قرار میگیرد باید به صورت تکست بدون علامت بزرگتر و کوچکتر باشد مانند
                     'p'  یا  'a'  یا  'span'  یا  'ayeh'  یا  'quran'
         :param min_word: حداقل تعداد کلمه ای که در جستجوی قرآنی شرکت میکند-اگر از 2 کمتر بود 2 در نظر گرفته میشود
         :param min_len_pure_text: حداقل تعداد حرف قسمت متن برای آیه یابی که اگر از 10 کمتر بود 10 در نظر گرفته میشود
         :param flag_identifying: در این کد اگر برای یک تکه متن چند آیه قرآن ناپیوسته پیشنهاد شود
                                 یعنی آن تکه در قسمتهای مختلف قرآن موجود است
-                                فلذا ابتدا با آدرس آیاتی که همان پاراگراف هستند تطبیق داده میشود
-                                اگر یکی از آدرس های اختصاص یافته به آن تکه متن در آدرسهای آن پاراگراف بود آن آدرس برگزیده میشود
-                                و گرنه در دو پاراگراف قبلی و بعدی بررسی میشود و اگر در آنها بود آن برگزیده میشود
+                                فلذا ابتدا با کل آدرس آیاتی که در کل متن ورودی هستند تطبیق داده میشود
+                                اگر یکی از آدرس های اختصاص یافته به آن تکه متن یا +1 یا -1 آن در آدرسهای آن پاراگراف بود آن آدرس برگزیده میشود
                                 در غیر این صورت اگر این فلگ صفر بود هیچ آدرسی برای آن تکه متن برگزیده نمیشود و صرفا تگ آیه به آن میخورد
                                 و اگر این تگ یک بود اولین آدرس از بین آدرسهای اختصاص داده شده برگزیده میشود
         ***************************************************************************************************
-        :return: خروجی به صورت یک دیکشنری است با دو کلید و مقدار
+        :return: خروجی به صورت یک دیکشنری است با سه کلید و مقدار
                 html_output:
                     کلید اول متن به صورت html است که همان متن ورودی است و لیکن آیات آن با مقادیر مناسب تگ گذاری شده است
                     بر روی هر آیه title قرار داده شده به علاوه یک تگ مخصوص و همچنین لینک و همچنین یک attr برای تعیین شماره آیات
-                    شماره آیات(ayehid) یک لیست از اعداد(شماره آیه) است. ممکن است یک یا چند عدد در آن باشد
+                    شماره آیات(ayehid) یک رشته از اعداد(شماره آیه) است. ممکن است یک عدد یا چند عدد که با , جدا شده اند در آن باشد
                 list_output:
-                    کلید دوم اطلاعات آیات پیدا شده در پاراگرافهاست که به صورت یک لیست از لیستهاست که درون هر کدام یک دیکشنری است
+                    کلید دوم اطلاعات آیات پیدا شده در پاراگرافهاست که به صورت یک لیست از لیستهاست که درون هر کدام یک یا چند دیکشنری است
                     هر لیست داخلی متناظر با یک پاراگراف است
                     مقادیر دیکشنری عبارتند از:
-                    ayehid: به صورت یک لیست از اعداد که میتواند یک یا چند عضو داشته باشد- البته اگر شماره آیه پیدا نشد این لیست تهی خواهد بود
-                    ayeh_text: متن تکه ای از متن که به عنوان آیه تشخیص داده شده است
-                    index_start_end: ایندکس ابتدایی و انتهایی تکه متنی که به عنوان آیه تشخیص داده شده است - به صورت یک تاپل با دو عدد
-                    ayeh_adress_text: آدرس متنی تکه متنی که به عنوان آیه شناسایی شده است
-                    link_ayeh: لینکی که میتواند بر آن تکه متن سوار شود
+                        ayehid: به صورت یک رشته که یک عدد و یا چند عدد که با ، جدا شده اند داشته باشد
+                                البته اگر شماره آیه پیدا نشد این لیست تهی خواهد بود
+                        ayeh_text: متن تکه ای از متن که به عنوان آیه تشخیص داده شده است
+                        index_start_end: ایندکس ابتدایی و انتهایی تکه متنی که به عنوان آیه تشخیص داده شده است
+                                        به صورت یک تاپل با دو عدد شروع و پایان
+                        ayeh_adress_text: (این متن بر روی title میتواند سوار شود)آدرس متنی تکه متنی که به عنوان آیه شناسایی شده است
+                        link_ayeh: لینکی که میتواند بر آن تکه متن سوار شود
+                list_ayat:
+                    در این کلید کل آیات به کار رفته در متن ورودی به صورت لیستی از اعداد ارائه میشود
         '''
         # به جای ' از &#39; یا &apos; استفاده کنید.
         # به جای " از &#34; یا &quot; استفاده کنید.
@@ -167,14 +170,11 @@ class AyehYab():
             index_counter += len_ayeh
 
         output = []
-        # متن ورودی(فعلا باید یک پاراگراف باشد)
-
         rows = text
         if type(rows) == str:
             rows = [rows]
         if type(rows) != list: return ''
         rows_len = len(rows)
-        # row = rows[0].replace('\n', '')
         for row in rows:
             row.replace('\n', '')
             if not row:
@@ -195,15 +195,16 @@ class AyehYab():
             end_index = list_index[end]
             '''
             مرور در متن ورودی به این شکل است که از ابتدا تا انتهای متن در متن قرآن جستجو میشود
-            اگر پیدا نشد یک space از انتها کم میشود و دوباره جستجو، اگر پیدا نشد دوباره و دوباره تا اینکه انتها به ابتدا میچسبد و یا اینکه یکی دو تا فاصله هنوز مانده باشد
+            اگر پیدا نشد یک space از انتها کم میشود و دوباره جستجو، اگر پیدا نشد دوباره و دوباره تا اینکه انتها به ابتدا میچسبد
+            و یا اینکه یکی دو تا فاصله هنوز مانده باشد
             در این حالت انتها به انتهای متن ورودی میچسبد و ابتدا یکی بیشتر میشود و دوباره جستجو و اگر پیدا نشد یکی از انتها کم میشود
             تا اینکه ابتدا به انتها میچسبد و یا اینکه یکی دوتا هنوز به انتها مانده باشد که از حلقه خارج میشود
             (در هر جا ایندکس شروه یا پایان تغییر میکند و متن جدیدی از متن اصلی انتخاب میشود عملیات استانداردسازی انجام میشود)
             در هر کجا که پیدا شد ایندکس ابتدا و انتها متن در دیکشنری متن قرآن بررسی شده و ayehid آن که ممکن است یک یا چند آیه متوالی باشد استخراج میشود
             به همراه ایندکس در متن اصلی بدون استانداردسازی 
              البته اگر آیه پیدا شد از آنجاییکه ممکن است در جاهای مختلف قرآن آمده باشد، دوباره از آنجای قرآن به بعد دوباره جستجو میشود
-            
             '''
+
             while start_index < end_index - 2:
                 start_index = list_index[start]
                 end_index = list_index[end]
@@ -224,43 +225,117 @@ class AyehYab():
                         ayehid1 = ayat_text_dict[index1]
                         ayeh_ids.append(",".join(map(str, range(ayehid0, ayehid1 + 1))))
 
-                    ayeh_adress_text = []
-                    link_ayeh = ''
-                    if ayeh_ids:
-                        for ayehid in ayeh_ids:
-                            if ',' in ayehid:
-                                ayehid = ayehid.split(',')
-                                ayeh_adress_temp0 = adress_ayeh_dict.get(int(ayehid[0]))
-                                ayeh_adress_temp1 = adress_ayeh_dict.get(int(ayehid[-1]))
-                                if ayeh_adress_temp0 and ayeh_adress_temp1:
-                                    ayeh_adress_text.append(ayeh_adress_temp0 + '-' + ayeh_adress_temp1)
-                            else:
-                                ayeh_adress_temp = adress_ayeh_dict.get(int(ayehid))
-                                if ayeh_adress_temp:
-                                    ayeh_adress_text.append(ayeh_adress_temp)
-                        ayeh_adress_text = ', '.join(ayeh_adress_text)
-
-                        ayeh_id_for_link = ayeh_ids[0]
-                        if ',' in ayeh_id_for_link:
-                            ayeh_id_for_link = ayeh_id_for_link.split(',')[0]
-                        link_ayeh = quran_url + ayeh_link_dict.get(int(ayeh_id_for_link))
-
                     out.append({'ayehid': ayeh_ids,
                                 'ayeh_text': row[start_index:end_index],
                                 'index_start_end': (start_index, end_index),
-                                'ayeh_adress_text': ayeh_adress_text,
-                                'link_ayeh': link_ayeh,
+                                'ayeh_adress_text': '',
+                                'link_ayeh': '',
                                 })
                     start += pure_text.count(' ') + 1
                     end = len(list_index) - 1
                 else:
-                    if end < 2: break
+                    if end < 1: break
                     end -= 1
                     if end <= start + 1:
                         end = len(list_index) - 1
                         start += 1
             output.append(out)
 
+        # ******************************** تصحیح ayehid ***************************
+        '''
+        از آنجا که ممکن است متن سلکت شده در چند جای قرآن پیدا شود و چند آدرس بگیرد
+        متغیر ayehid یک لیست خواهد بود که یک یا چند آدرس را داراست
+        اگر تکه متنی دارای بیش از یک آدرس بود به کمک لیست کل آیات کل متن ورودی یکی از آنها انتخاب میشود
+        بدین صورت که اگر هر کدام از آدرسها و یا +1 و یا -1 آن در لیست کل آیات پیدا شد آن احتمال برگزیده میشود
+        و اگر نشد بسته به انتخاب کاربر یا مورد اول لیست احتمالات برگزیده میشود و یا اینکه تهی برمیگردد
+        '''
+        list_ayat = []
+        # تهیه لیست کل آدرس آیات کل متن ورودی
+        for sublist in output:
+            for dictionary in sublist:
+                if 'ayehid' in dictionary:
+                    temp = dictionary['ayehid']
+                    for item in temp:
+                        if ',' in item:
+                            item = item.split(',')
+                            for i in item:
+                                list_ayat.append(int(i))
+                        else:
+                            list_ayat.append(int(item))
+        # تصحیح آدرس آیات احتمال با توجه به لیست کل
+        for sublist in output:
+            for dictionary in sublist:
+                if 'ayehid' in dictionary:
+                    flag = False
+                    temp = dictionary['ayehid']
+                    if len(temp) == 1:
+                        dictionary['ayehid'] = temp[0]
+                        continue
+                    for i in temp:
+                        if ',' not in i:
+                            if list_ayat.count(int(i)) > 1 or list_ayat.count(int(i) - 1) > 0 or list_ayat.count(
+                                    int(i) + 1) > 0:
+                                dictionary['ayehid'] = i
+                                flag = True
+                                break
+                        else:
+                            for j in i.split(','):
+                                if list_ayat.count(int(j)) > 1 or list_ayat.count(int(j) - 1) > 0 or list_ayat.count(
+                                        int(j) + 1) > 0:
+                                    dictionary['ayehid'] = i
+                                    flag = True
+                                    break
+                    if flag == False:
+                        if flag_identifying:  # اگر کاربر انتخاب کرده که در صورت نبود آدرس مشابه، احتمال اول برگردد
+                            dictionary['ayehid'] = temp[0]
+                        else:  # یا خالی برگردد
+                            dictionary['ayehid'] = ''
+
+                            # *****************   ayeh_adress_text  مقدار دهی  ********************
+        '''
+        بر اساس مقدار ayehid تصحیح شده آدرس آیه به صورت متنی نیز بدست میآید که میتواند در title متن استفاده شود
+        اگر آدرس آیه یکی بود آدرس متنی همان آیه خواهد بود
+        و اگر آدرس به صورت آیات پیوسته بود آدرس متنی آیه اول و آخر با فاصله - ارائه میشوند
+        '''
+        list_ayat_output = []
+        for sublist in output:
+            for dictionary in sublist:
+                if 'ayehid' in dictionary:
+                    ids = dictionary['ayehid']
+                    list_ayat_output.append(ids)
+                if 'ayeh_adress_text' in dictionary:
+                    ayeh_adress_text = ''
+                    if ',' in ids:
+                        ids_temp = ids.split(',')
+                        ayeh_adress_temp0 = adress_ayeh_dict.get(int(ids_temp[0]))
+                        ayeh_adress_temp1 = adress_ayeh_dict.get(int(ids_temp[-1]))
+                        if ayeh_adress_temp0 and ayeh_adress_temp1:
+                            ayeh_adress_text = ayeh_adress_temp0 + '-' + ayeh_adress_temp1
+                    else:
+                        if ids:
+                            ayeh_adress_text = adress_ayeh_dict.get(int(ids))
+                    dictionary['ayeh_adress_text'] = ayeh_adress_text
+
+                # *****************   link_ayeh مقدار دهی  *********************
+                '''
+                بر اساس مقدار ayehid تصحیح شده لینک مناسب برای متن قران ساخته میشود
+                چه آدرس آیه یکی باشد و یا چند آیه پیوسته باشد آدرس اول ملاک خواهد بود
+                ایت آدرس به لینک ورودی کاربر و یا پیش فرض افزوده میشود و یک url را میسازد
+                '''
+                link_ayeh = ''
+                if 'link_ayeh' in dictionary:
+                    if ',' in ids:
+                        ids = ids.split(',')[0]
+                    if ids:
+                        link_ayeh = quran_url + ayeh_link_dict.get(int(ids))
+                    dictionary['link_ayeh'] = link_ayeh
+
+        # ******************************** ساختhtml  ***************************
+        '''
+        بر اساس لیست output و مقادیر آن متن ورودی به صورت  html  در میاید
+        به ترتیب از پاراگراف اول الی آخر
+        ولی در هر پاراگراف از آیات آخر شروع میشود و در ایندکس های مشخص شده tag,link,class,title,attr قرار میگیرد
+        '''
         html_output = []
         for index in range(rows_len):
             row = rows[index]
@@ -271,13 +346,21 @@ class AyehYab():
                 ayehids = item["ayehid"]
                 ayeh_adress_text = item["ayeh_adress_text"]
                 link_ayeh = item["link_ayeh"]
-                start_tag = f"<{tag} href='{link_ayeh}' class='{ayeh_class}' ayeh_id='{str(ayehids)}' title='{ayeh_adress_text}'>"
+                start_tag = f'<{tag} href="{link_ayeh}" class="{ayeh_class}" ayeh_id="{str(ayehids)}" title="{ayeh_adress_text}">'
                 end_tag = f'</{tag}>'
                 row = row[:start_index] + start_tag + row[start_index:end_index] + end_tag + row[end_index:]
 
             html_output.append(row)
         html_output = f'{paragraph_mark}'.join(html_output)
+
+        if list_ayat_output:
+            list_ayat_output = ','.join(list_ayat_output)
+            list_ayat_output = list_ayat_output.split(',')
+            list_ayat_output = [int(item) for item in list_ayat_output if item]
+            list_ayat_output = sorted(list(set(list_ayat_output)))
+
         return {
             'html_output': html_output,
             'list_output': output,
+            'list_ayat':list_ayat_output
         }

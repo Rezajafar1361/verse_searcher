@@ -6,4 +6,4 @@ a = AyehYab().ayeh_find(rows)
 
 print(a['html_output'])
 print(a['list_output'])
-
+print(a['list_ayat'])
