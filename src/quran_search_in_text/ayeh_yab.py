@@ -74,14 +74,22 @@ class AyehYab():
 
     def ayeh_find(self,
                   text,
-                  quran_url='https://data.belquran.com/fa-IR/Quran/s/',
-                  ayeh_class='ayeh',
-                  paragraph_mark='</br>',
-                  tag='a',
-                  min_word=3,
-                  min_len_pure_text=10,
-                  flag_identifying=0
+                  quran_url=None,
+                  ayeh_class=None,
+                  paragraph_mark=None,
+                  tag=None,
+                  min_word=None,
+                  min_len_pure_text=None,
+                  flag_identifying=None
                   ):
+        if not quran_url: quran_url = 'https://data.belquran.com/fa-IR/Quran/s/'
+        if not ayeh_class: ayeh_class = 'ayeh'
+        if not paragraph_mark: paragraph_mark = '</br>'
+        if not tag: tag = 'a'
+        if not min_word: min_word = 3
+        if not min_len_pure_text: min_len_pure_text = 10
+        if not flag_identifying: flag_identifying = 1
+
         '''
         :param text: متن ورودی
         :param quran_url: شماره سوره و شماره آیه به این لینک اضافه شده و لینک روی آیه را ایجاد میکنند
@@ -346,7 +354,7 @@ class AyehYab():
                 ayehids = item["ayehid"]
                 ayeh_adress_text = item["ayeh_adress_text"]
                 link_ayeh = item["link_ayeh"]
-                start_tag = f'<{tag} href="{link_ayeh}" class="{ayeh_class}" ayeh_id="{str(ayehids)}" title="{ayeh_adress_text}">'
+                start_tag = f"<{tag} href='{link_ayeh}' class='{ayeh_class}' ayeh_id='{str(ayehids)}' title='{ayeh_adress_text}'>"
                 end_tag = f'</{tag}>'
                 row = row[:start_index] + start_tag + row[start_index:end_index] + end_tag + row[end_index:]
 
@@ -362,5 +370,8 @@ class AyehYab():
         return {
             'html_output': html_output,
             'list_output': output,
-            'list_ayat':list_ayat_output
+            'list_ayat': list_ayat_output
         }
+
+    def clear_additions(self):
+        pass
