@@ -1,4 +1,5 @@
 import os
+from bs4 import BeautifulSoup
 
 
 class AyehYab():
@@ -373,5 +374,17 @@ class AyehYab():
             'list_ayat': list_ayat_output
         }
 
-    def clear_additions(self):
-        pass
+    def clear_additions(self, html_text, tag=None, class_name=None):
+        '''
+        این تابع بدین منظور تهیه شده تا تمامی تگهایی که تابع آیه یاب به یک متن زده را حذف کند
+        :param html_text: متن ورودی که به صورت یک رشته باید باشد(لزومی بر پاراگراف کردن نیست و یک متن بلند نیز در اینجا قابل بارگذاری است)
+        :param tag:  تگی که باید حذف شود(به صورت پیش فرض تگ پیش فرض تابع آیه یاب را ملاک قرار میدهد)
+        :param class_name: فقط آن تگهایی پاک میشوند که این کلاس را دارا باشند(به صورت پیش فرض همان کلاس تابع آیه یاب ملاک قرار گرفته است)
+        :return: خروجی یک رشته خالی شده از کلیه ی تگها و اضافات تابع آیه یاب است
+        '''
+        if not tag: tag = 'a'
+        if not class_name: class_name = 'ayeh'
+        soup = BeautifulSoup(html_text, "html.parser")
+        for tag in soup.find_all(name=tag, class_=class_name):
+            tag.replace_with(tag.get_text())
+        return str(soup)

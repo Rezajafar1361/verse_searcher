@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: quran_search_in_text
-Version: 0.0.10
+Version: 0.1.0
 Summary: package for find verses in text
 Author-email: Reza jafarzadeh <rezajafar90@gmail.com>
 Project-URL: Homepage, https://github.com/pypa/sampleproject
@@ -18,11 +18,11 @@ The location of the verse along with the address of the verse in the Quran is pr
 Also, the input text can be converted into an HTML text in which the verses of the Qur'an are placed in their own tag and have a title, as well as a link to the Qur'an page on the relevant site.
 Input can be text or a list of texts
 
-******************************
+-------------------------------------
 The source code is available at the following address:
 https://github.com/Rezajafar1361/oder_project.git
 
-******************************
+******** تابع  ayeh_find  *****************
 :param text: متن ورودی
 :param quran_url: شماره سوره و شماره آیه به این لینک اضافه شده و لینک روی آیه را ایجاد میکنند
         این لینک باید به صورت زیر کار کند:
@@ -40,7 +40,7 @@ https://github.com/Rezajafar1361/oder_project.git
                 اگر یکی از آدرس های اختصاص یافته به آن تکه متن یا +1 یا -1 آن در آدرسهای آن پاراگراف بود آن آدرس برگزیده میشود
                 در غیر این صورت اگر این فلگ صفر بود هیچ آدرسی برای آن تکه متن برگزیده نمیشود و صرفا تگ آیه به آن میخورد
                 و اگر این تگ یک بود اولین آدرس از بین آدرسهای اختصاص داده شده برگزیده میشود
-******************************
+-------------------------------------
 :return: خروجی به صورت یک دیکشنری است با سه کلید و مقدار
 html_output:
     کلید اول متن به صورت html است که همان متن ورودی است و لیکن آیات آن با مقادیر مناسب تگ گذاری شده است
@@ -59,3 +59,10 @@ list_output:
         link_ayeh: لینکی که میتواند بر آن تکه متن سوار شود
 list_ayat:
     در این کلید کل آیات به کار رفته در متن ورودی به صورت لیستی از اعداد ارائه میشود
+
+******** تابع  clear_additions  *****************
+این تابع بدین منظور تهیه شده تا تمامی تگهایی که تابع آیه یاب به یک متن زده را حذف کند
+        :param html_text: متن ورودی که به صورت یک رشته باید باشد(لزومی بر پاراگراف کردن نیست و یک متن بلند نیز در اینجا قابل بارگذاری است)
+        :param tag:  تگی که باید حذف شود(به صورت پیش فرض تگ پیش فرض تابع آیه یاب را ملاک قرار میدهد)
+        :param class_name: فقط آن تگهایی پاک میشوند که این کلاس را دارا باشند(به صورت پیش فرض همان کلاس تابع آیه یاب ملاک قرار گرفته است)
+        :return: خروجی یک رشته خالی شده از کلیه ی تگها و اضافات تابع آیه یاب است
