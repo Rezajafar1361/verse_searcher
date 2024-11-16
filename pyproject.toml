@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "quran_search_in_text"
-version = "0.1.0"
+version = "0.1.2"
 authors = [
   { name="Reza jafarzadeh", email="rezajafar90@gmail.com" },
 ]
@@ -19,6 +19,8 @@ classifiers = [
     "Operating System :: OS Independent",
 ]
 keywords = ["quran", "verse", "ayeh", "ayat", "kuran", "Quran"]
+dependencies = [
+    "bs4"]
 
 [tool.setuptools.packages.find]
 where = ["src"]

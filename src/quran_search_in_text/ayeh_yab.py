@@ -384,7 +384,13 @@ class AyehYab():
         '''
         if not tag: tag = 'a'
         if not class_name: class_name = 'ayeh'
-        soup = BeautifulSoup(html_text, "html.parser")
-        for tag in soup.find_all(name=tag, class_=class_name):
-            tag.replace_with(tag.get_text())
-        return str(soup)
+
+        output = []
+        for text in html_text:
+            soup = BeautifulSoup(text, "html.parser")
+            for tag in soup.find_all(name=tag, class_=class_name):
+                tag.unwrap()  # حذف فقط تگ مربوطه و متعلقات آن
+                # فقط متنهای داخل تگ a باقی مانده و مابقی چیزهایی که درون تگ a است حذف میشود حتی اگر تگهای دیگری در ان باز و بسته شده باشند
+                # tag.replace_with(tag.get_text())
+            output.append(str(soup))
+        return output
