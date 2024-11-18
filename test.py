@@ -21,3 +21,6 @@ print('***********************************************')
 # a = AyehYab().standard_text(text=text.join(rows))
 # print(a)
 
+'''
+AyehYab().ayeh_find(text=rows, quran_url = 'https://data.belquran.com/fa-IR/Quran/s/', ayeh_class = 'ayeh', paragraph_mark = '</br>', tag = 'a', min_word = 3, min_len_pure_text = 10, flag_identifying = 1)
+'''
